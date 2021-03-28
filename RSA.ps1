@@ -2,11 +2,12 @@
 $p=2
 $q=7
 $N=$p*$q
-$sqrtQ=[math]::Sqrt($q)
-$sqrtP=[math]::Sqrt($p)
 $fiN=($p-1)*($q-1)
-$Pfactors = @()
-$Qfactors = @()
+$sqrtN=[math]::Sqrt($N)
+$sqrtfiN=[math]::Sqrt($fiN)
+
+$Nfactors = @()
+$fiNfactors = @()
 $eRules = @()
 $i=2
 #build list of 1 < e < fi(N) List is $eRules
@@ -27,9 +28,9 @@ while($stop -eq $false)
 {
     
     while($i -le $sqrtP){
-        if(($p % $i) -eq 0){ 
-            $Pfactors += $i
-            $Pfactors += $p/$i
+        if(($N % $i) -eq 0){ 
+            $sqrtN += $i
+            $sqrtN += $N/$i
         }
         
         $i++
@@ -37,10 +38,10 @@ while($stop -eq $false)
     $i=1
     while($i -le $sqrtQ){
         
-        if(($q % $i) -eq 0){
+        if(($fiN % $i) -eq 0){
                     
-            $Qfactors += $i
-            $Qfactors += $q/$i
+            $fiNfactors += $i
+            $fiNfactors += $fiN/$i
         }
             $i++
     }
@@ -73,7 +74,7 @@ while($stop -eq $false)
         if( ( [math]::Sqrt($R) % 1 ) -eq 0){
             $cand += $i
         }
-        $output+=(compare-object -IncludeEqual $Qfactors $cand | where-object {$_.SideIndicator -eq '=='} | foreach{$_.InputObject})
+        $output+=(compare-object -IncludeEqual $fiNfactors $cand | where-object {$_.SideIndicator -eq '=='} | foreach{$_.InputObject})
         
         if($output.Length -eq 1){
             write-host $cand
