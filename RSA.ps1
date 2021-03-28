@@ -84,9 +84,10 @@ while($stop -eq $false)
         
         if($finSharedF.Length -eq 1 -and $NSharedF.Length -eq 1){
             $publickey=$R
+            
         }
         $i=1
-    
+        
         while($i -lt 12){
             if((($R*$i)%$fiN) -eq 1 -and $i -ne $publickey){
                 
@@ -101,11 +102,16 @@ while($stop -eq $false)
 }
 }
 [char]$plain = 'B'
-$plainNum=$plain/1
-write-host $plainNum
-$encrpytednum=([math]::Pow($publickey,$plainNum)) % $N
-$decrypted=([math]::Pow($privatekey,$encrpytednum)) % $N
-write-host $decrypted
+$plainNum=([double]$plain/1)
+#write-host ($plainNum/1)
+
+$encrpytednum=([math]::Pow($plainNum,$publickey)) % $N
+$decrypted=([math]::Pow($encrpytednum,$privatekey)) % $N
+
+write-host ([math]::Pow(2,3))
+#write-host $encrpytednum
+
+#write-host $decrypted
 
 write-host PublicKey= $R , $N
 write-host PrivateKey= $I , $N
