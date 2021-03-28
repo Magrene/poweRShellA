@@ -17,7 +17,7 @@ while($stop -eq $false){
         $eRules+=$i
         $i++
     }
-    write-host $eRules
+    
     $stop=$true
 }
 
@@ -29,8 +29,8 @@ while($stop -eq $false)
     
     while($i -le $sqrtP){
         if(($N % $i) -eq 0){ 
-            $sqrtN += $i
-            $sqrtN += $N/$i
+            $Nfactors += $i
+            $Nfactors += $N/$i
         }
         
         $i++
@@ -53,14 +53,16 @@ while($stop -eq $false)
 #Select an E
 $i=1
 $cand = @()
-$candidate=$eRules[0]
 $stop=$false
+
 
 while($stop -eq $false)
 {
+
     foreach($R in $eRules){
         $cand = @()
-        $output = @()
+        $finSharedF = @()
+        $NSharedF= @()
         while($i -lt [math]::Sqrt($R)){
             if(($R % $i) -eq 0){ 
                 
@@ -74,10 +76,13 @@ while($stop -eq $false)
         if( ( [math]::Sqrt($R) % 1 ) -eq 0){
             $cand += $i
         }
-        $output+=(compare-object -IncludeEqual $fiNfactors $cand | where-object {$_.SideIndicator -eq '=='} | foreach{$_.InputObject})
         
-        if($output.Length -eq 1){
-            write-host $cand
+        
+        $finSharedF+=(compare-object -IncludeEqual $fiNfactors $cand | where-object {$_.SideIndicator -eq '=='} | foreach{$_.InputObject})
+        $NSharedF+=(compare-object -IncludeEqual $fiNfactors $cand | where-object {$_.SideIndicator -eq '=='} | foreach{$_.InputObject})
+        
+        if($finSharedF.Length -eq 1 -and $NSharedF.Length -eq 1){
+            write-host PublicKey=$R , $N
         }
         $i=1
     
@@ -87,5 +92,3 @@ while($stop -eq $false)
     $stop=$true
 }
 }
-write-host $cand
-#Write-Host $cand
