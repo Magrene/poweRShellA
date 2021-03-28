@@ -105,13 +105,14 @@ while($stop -eq $false)
 $plainNum=([double]$plain/1)
 #write-host ($plainNum/1)
 
-$encrpytednum=([math]::Pow($plainNum,$publickey)) % $N
+$encrpytednum=(([math]::Pow($plainNum,$publickey)) % $N)
 $decrypted=([math]::Pow($encrpytednum,$privatekey)) % $N
 
-write-host ([math]::Pow(2,3))
+write-host $encrpytednum
+write-host (([math]::Pow($plainNum,$publickey)) % $N)
 #write-host $encrpytednum
 
 #write-host $decrypted
 
-write-host PublicKey= $R , $N
-write-host PrivateKey= $I , $N
+write-host PublicKey= $publickey , $N
+write-host PrivateKey= $privatekey , $N
