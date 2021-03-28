@@ -89,7 +89,8 @@ while($stop -eq $false)
     
         while($i -lt 12){
             if((($R*$i)%$fiN) -eq 1 -and $i -ne $publickey){
-                write-host PrivateKey= $I , $N
+                
+                $privatekey=$I
                 $i=12
             }
             $i++
@@ -99,4 +100,12 @@ while($stop -eq $false)
         $stop=$true
 }
 }
+[char]$plain = 'B'
+$plainNum=$plain/1
+write-host $plainNum
+$encrpytednum=([math]::Pow($publickey,$plainNum)) % $N
+$decrypted=([math]::Pow($privatekey,$encrpytednum)) % $N
+write-host $decrypted
+
 write-host PublicKey= $R , $N
+write-host PrivateKey= $I , $N
