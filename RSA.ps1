@@ -83,13 +83,20 @@ while($stop -eq $false)
         $NSharedF+=(compare-object -IncludeEqual $fiNfactors $cand | where-object {$_.SideIndicator -eq '=='} | foreach{$_.InputObject})
         
         if($finSharedF.Length -eq 1 -and $NSharedF.Length -eq 1){
-            write-host PublicKey=$R , $N
+            $publickey=$R
         }
         $i=1
     
-    
-    
+        while($i -lt 12){
+            if((($R*$i)%$fiN) -eq 1 -and $i -ne $publickey){
+                write-host PrivateKey= $I , $N
+                $i=12
+            }
+            $i++
+        }
         
-    $stop=$true
+        
+        $stop=$true
 }
 }
+write-host PublicKey= $R , $N
