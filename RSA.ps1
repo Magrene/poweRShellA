@@ -27,7 +27,7 @@ $stop=$false
 while($stop -eq $false)
 {
     
-    while($i -le $sqrtP){
+    while($i -le $sqrtN){
         if(($N % $i) -eq 0){ 
             $Nfactors += $i
             $Nfactors += $N/$i
@@ -36,7 +36,7 @@ while($stop -eq $false)
         $i++
     }
     $i=1
-    while($i -le $sqrtQ){
+    while($i -le $sqrtfiN){
         
         if(($fiN % $i) -eq 0){
                     
@@ -45,6 +45,7 @@ while($stop -eq $false)
         }
             $i++
     }
+
 
     $stop=$true
 }
@@ -88,7 +89,7 @@ while($stop -eq $false)
     
     
     
-
+        
     $stop=$true
 }
 }
