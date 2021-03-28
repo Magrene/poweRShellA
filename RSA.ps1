@@ -51,7 +51,7 @@ while($stop -eq $false)
 }
 
 
-#Select an E
+#Select an E and D
 $i=1
 $cand = @()
 $stop=$false
