@@ -1,10 +1,10 @@
 ﻿$stop=$false
-[long]$p=19
-[long]$q=23
-[long]$N=$p*$q
-$fiN=($p-1)*($q-1)
-$sqrtN=[math]::Sqrt($N)
-$sqrtfiN=[math]::Sqrt($fiN)
+[BigInt]$p=101
+[BigInt]$q=103
+[BigInt]$N=$p*$q
+[BigInt]$fiN=($p-1)*($q-1)
+[BigInt]$sqrtN=[math]::Sqrt($N)
+[BigInt]$sqrtfiN=[math]::Sqrt($fiN)
 write-host $N
 $Nfactors = @()
 $fiNfactors = @()
@@ -88,11 +88,11 @@ while($stop -eq $false)
         }
         $i=1
         
-        while($i -lt 12){
+        while($i -lt 10000000000){
             if((($R*$i)%$fiN) -eq 1 -and $i -ne $publickey){
                 
                 $privatekey=$I
-                $i=12
+                $i=10000000000
             }
             $i++
         }
@@ -105,15 +105,17 @@ while($stop -eq $false)
 $plainNum=([double]$plain/1)
 #write-host ($plainNum/1)
 
-$encrpytednum=(([math]::Pow($plainNum,$publickey)) % $N)
-$decrypted=([math]::Pow($encrpytednum,$privatekey)) % $N
+#[bigint]$encrpytednum=(([math]::Pow($plainNum,$publickey)) % $N)
+#$decrypted=([math]::Pow($encrpytednum,$privatekey)) % $N
 
-write-host $publickey
-write-host (([math]::Pow(2,$publickey)) % $N)
-write-host (([math]::Pow(311,$privatekey)) % $N)
+write-host plain $plainNum
+$encnum=([System.Numerics.BigInteger]::ModPow($plainNum,$publickey,$n))
+$decnum=([System.Numerics.BigInteger]::ModPow($encnum,$privatekey,$n))
+#write-host (([math]::Pow($plainNum,$publickey)) % $N)
+#write-host (([math]::Pow(72,$privatekey)) % $N)
 #write-host $encrpytednum
 
 #write-host $decrypted
-write-host (1090660992520643446103273789680343*1162435056374824133712043309728653)
+
 write-host PublicKey= $publickey , $N
 write-host PrivateKey= $privatekey , $N
