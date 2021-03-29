@@ -1,11 +1,11 @@
 ﻿$stop=$false
-$p=2
-$q=7
-$N=$p*$q
+[long]$p=19
+[long]$q=23
+[long]$N=$p*$q
 $fiN=($p-1)*($q-1)
 $sqrtN=[math]::Sqrt($N)
 $sqrtfiN=[math]::Sqrt($fiN)
-
+write-host $N
 $Nfactors = @()
 $fiNfactors = @()
 $eRules = @()
@@ -108,11 +108,12 @@ $plainNum=([double]$plain/1)
 $encrpytednum=(([math]::Pow($plainNum,$publickey)) % $N)
 $decrypted=([math]::Pow($encrpytednum,$privatekey)) % $N
 
-write-host $encrpytednum
-write-host (([math]::Pow($plainNum,$publickey)) % $N)
+write-host $publickey
+write-host (([math]::Pow(2,$publickey)) % $N)
+write-host (([math]::Pow(311,$privatekey)) % $N)
 #write-host $encrpytednum
 
 #write-host $decrypted
-
+write-host (1090660992520643446103273789680343*1162435056374824133712043309728653)
 write-host PublicKey= $publickey , $N
 write-host PrivateKey= $privatekey , $N
