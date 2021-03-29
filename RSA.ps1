@@ -5,7 +5,7 @@
 [BigInt]$fiN=($p-1)*($q-1)
 [BigInt]$sqrtN=[math]::Sqrt($N)
 [BigInt]$sqrtfiN=[math]::Sqrt($fiN)
-write-host $N
+write-host $fiN
 $Nfactors = @()
 $fiNfactors = @()
 $eRules = @()
@@ -88,11 +88,11 @@ while($stop -eq $false)
         }
         $i=1
         
-        while($i -lt 10000000000){
+        while($i -lt 1){
             if((($R*$i)%$fiN) -eq 1 -and $i -ne $publickey){
                 
                 $privatekey=$I
-                $i=10000000000
+                $i=10
             }
             $i++
         }
@@ -110,7 +110,8 @@ $plainNum=([double]$plain/1)
 
 write-host plain $plainNum
 $encnum=([System.Numerics.BigInteger]::ModPow($plainNum,$publickey,$n))
-$decnum=([System.Numerics.BigInteger]::ModPow($encnum,$privatekey,$n))
+$decnum=([System.Numerics.BigInteger]::ModPow($encnum,0.00009815469,$n))
+write-host $decnum
 #write-host (([math]::Pow($plainNum,$publickey)) % $N)
 #write-host (([math]::Pow(72,$privatekey)) % $N)
 #write-host $encrpytednum
